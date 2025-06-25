@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running Text Nasi Padang</title>
+    <style>
+        /* Global styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff7043, #ff5722);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        /* Container untuk running text */
+        .marquee-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Teks yang bergerak */
+        .marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: scroll 10s linear infinite;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Animasi untuk scroll teks dari kanan ke kiri */
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Efek hover untuk interaksi */
+        .marquee-container:hover .marquee-text {
+            animation-play-state: paused;  /* Stop scroll saat hover */
+        }
+
+        /* Responsiveness untuk layar kecil */
+        @media (max-width: 600px) {
+            .marquee-text {
+                font-size: 24px;
+            }
+
+            .marquee-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Container untuk Running Text -->
+    <div class="marquee-container">
+        <div class="marquee-text">
+            Nasi Padang - Nikmati lezatnya hidangan spesial dari Padang, segar, pedas, dan bergizi! 🍚
+        </div>
+    </div>
+
+</body>
+</html>
