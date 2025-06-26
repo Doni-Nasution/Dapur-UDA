@@ -92,6 +92,82 @@ body{
     display: none;
 }
 /* navbar */
+.navbar .search-form{
+    position: absolute;
+    top: 100%;
+    right: 7%;
+    background-color: var(--Putih);
+    width: 50rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: 0.3s;
+
+}
+.navbar .search-form input {
+    height: 100%;
+    width: 100%;
+    font-size: 1.6rem;
+    color: var(--Hitam);
+    padding-left: 2rem;
+
+}
+.navbar .search-form label {
+    cursor: pointer;
+    font-size: 2rem;
+    margin-right: 1.5rem;
+    color: #2b2d42;
+}
+.navbar .search-form.active {
+    transform: scaleY(1);
+}
+
+/* shoping card */
+.shopping-card {
+    position: absolute;
+    top: 100%;
+    right: -100%;
+    height: 100vh;
+    width: 35rem;
+    padding: 0 1.5rem;
+    color: var(--font);
+    background-color: var(--Putih);
+    transition: 0.3s linear;
+}
+.shopping-card.active{
+    right: 0;
+}
+.shopping-card img {
+    height: 6rem;
+    border-radius: 15%;
+}
+.shopping-card .card-item {
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed #333;
+    position: relative;
+}
+.shopping-card h3 {
+    font-size: 1.6rem;
+    padding-bottom: 0.5rem;
+}
+.shopping-card .item-price {
+    font-size: 1.2rem;
+}
+.shopping-card .remove-item {
+    position: absolute;
+    right: 1rem;
+    cursor: pointer;
+}
+.shopping-card .remove-item:hover {
+    color: var(--Merah);
+}
+
 
 /* hero */
     .hero{
@@ -153,17 +229,17 @@ body{
 /* hero */
 
 /* about */
-    .about, .menu, .contact {
+    .about, .menu, .contact, .paket {
         padding: 8rem 7% 7.4rem;
     }
 
-    .about h2, .menu h2, .contact h2  {
+    .about h2, .menu h2, .contact h2, .paket  {
         text-align: center;
         font-size: 2.6rem;
         margin-bottom: 3rem;
     }
 
-    .about h2 span, .menu h2 span, .contact h2 span {
+    .about h2 span, .menu h2 span, .contact h2 span, .paket h2 span {
         color: var(--Merah);
     }
 
@@ -199,7 +275,11 @@ body{
 /* about */
 
 /* menu */
-.menu p, .contact p {
+.paket p {
+    font-size: 1rem;
+}
+
+.menu p, .contact p, .paket p {
     text-align: center;
     max-width: 30rem;
     margin: auto;
@@ -237,6 +317,72 @@ body{
 
 
 /* menu end */
+
+/* Paket */
+.paket .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+    /* background-color: #D00000; */
+}
+.paket .Paket-card {
+    text-align: center;
+    border: 1px solid #f8f9fa;
+    padding: 2rem;
+}
+.paket .Paket-icons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.paket .Paket-icons a {
+    width: 4rem;
+    height: 4rem;
+    color: var(--Putih);
+    margin: 0.3rem;
+    border: 1px solid #D00000;
+    border-radius: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.paket .Paket-icons a:hover {
+    color: var(--Kuning);
+    background-color: var(--Putih);
+}
+.paket .paket-image {
+    padding: 1rem 0;
+}
+.paket .paket-image img {
+    height: 25rem;
+}
+.paket .paket-konten h3 {
+    font-size: 2rem;
+}
+.paket .paket-konten .rating-paket {
+    font-size: 1.7rem;
+    padding: 0.8rem;
+    /* color: #D00000; */
+}
+.paket .paket-konten .rating-paket .rating{
+    fill: var(--Kuning);
+    color: var(--Kuning);
+}
+.paket .price-paket {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.paket .price-paket span {
+    text-decoration: line-through;
+    font-weight: lighter;
+    font-size: 1rem;
+    color: red;
+}
+/* Paket End*/
+
+
+
 
 /* contact */
 .contact .row {
@@ -349,6 +495,71 @@ footer .credit a {
   }
 /* runing text end */
 
+/* item detail */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  .modal-container {
+    position: relative;
+    background-color: var(--Putih);
+    color: var(--font);
+    margin: 15% auto;
+    padding: 1.2rem;
+    border: 1px solid #666;
+    width: 80%;
+    animation: animateModal 0.5s;
+  }
+  .modal-container .close-icon {
+    position: absolute;
+    right: 1rem;
+  }
+  .modal-content {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .modal-content img {
+    height: 15rem;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+  }
+  .modal-content p {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    margin-top: 1.2rem;
+  }
+  .modal-content a {
+    display: flex;
+    gap: 1rem;
+    width: 12rem;
+    background-color: var(--Merah);
+    color: var(--Putih);
+    margin-top: 1rem;
+    padding: 1rem 1.6rem;
+    border-radius: 15px;
+  }
+
+        /* modal animation */
+            @keyframes animateModal {
+                from {
+                top: 300px;
+                opacity: 0;        
+             }
+            to {
+                top: 0;
+                opacity: 1;
+            } 
+        }
+
+/* item detail end */
+
 /* media queries */
 
     /* laptop */
@@ -438,6 +649,13 @@ footer .credit a {
         }
         .contact .row form {
             padding-top: 0;
+        }
+        .navbar .search-form {
+            width: 90%;
+            right: 2rem;
+        }
+        .modal-content {
+            flex-wrap: wrap;
         }
     }
     /* tablet */
