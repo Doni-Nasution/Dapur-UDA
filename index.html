@@ -11,27 +11,38 @@
     <!-- font -->
     <!-- icon -->
     <script src="https://unpkg.com/feather-icons"></script>
-    <!-- icon -->
-    <link rel="stylesheet" href="css/Style_Masakan_Padang.css">
+    <!-- icon end -->
+     <!-- CSS -->
+     <link rel="stylesheet" href="css/Style_Masakan_Padang.css">
+     <!-- CSS -->
+    <!-- alipne js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- alipne js end -->
+     <!-- App -->
+      <script src="src/app.js" async></script>
+     <!-- App end -->
 </head>
 <body>
     <!-- audio -->
      <audio autoplay> <source src="sound/Musik Minang No Copyright - Cocok untuk intro video  Gelombang by Genta Haramain.mp3" type="audio/mp3"></audio>
     <!-- audioend -->
     <!-- Navbar start -->
-    <nav class="navbar">
+    <nav class="navbar" x-data>
         <a href="#" class="navbar-logo">Dapur<span class="u">U</span><span class="d">D</span><span class="a">A</span></a>
 
         <div class="navbar-nav">
             <a href="#runing-text">Home</a>
             <a href="#about">Tentang Kami</a>
-            <a href="#menu">Menu</a>
-            <a href="#paket">Paket</a>
+            <!-- <a href="#menu">Menu</a> -->
+            <a href="#paket">Menu</a>
             <a href="#contact">Kontak</a>
         </div>
         <div class="navbar-extra">
             <a href="#" id="Search-button"><i data-feather="search"></i></a>
-            <a href="#" id="card-button"><i data-feather="shopping-cart"></i></a>
+            <a href="#" id="card-button">
+                <i data-feather="shopping-cart"></i>
+                <span class="quantuty-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+            </a>
             <a href="#" id="haburger-menu"><i data-feather="menu"></i></a>
         </div>
         <!-- serch bar -->
@@ -43,36 +54,48 @@
 
         <!-- shopping card -->
          <div class="shopping-card">
-            <div class="card-item">
-                <img src="image/paket/paket 1.jpg" alt="Produk 1">
+            <template x-for="(item, index) in $store.cart.items" x-key="index">
+                <div class="card-item">
+                <img :src="`image/paket/${item.img}`" :alt="item.name">
                 <div class="item-detail">
-                    <h3>Produk 1</h3>
+                    <h3 x-text="item.name"></h3>
                     <div class="item-price">
-                        Rp 15.000
+                        <span x-text="rupiah(item.price)"></span> &times;
+                        <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+                        <span x-text="item.quantity"></span>
+                        <span id="add" @click="$store.cart.add(item)">&plus;</span> &equals;
+                        <span x-text="rupiah(item.total)"></span>
                     </div>
                 </div>
-                <i data-feather="trash-2" class="remove-item"></i>
-            </div>
-            <div class="card-item">
-                <img src="image/paket/paket 1.jpg" alt="Produk 1">
-                <div class="item-detail">
-                    <h3>Produk 1</h3>
-                    <div class="item-price">
-                        Rp 15.000
-                    </div>
+                <!-- <i data-feather="trash-2" class="remove-item"></i> -->
                 </div>
-                <i data-feather="trash-2" class="remove-item"></i>
-            </div>
-            <div class="card-item">
-                <img src="image/paket/paket 1.jpg" alt="Produk 1">
-                <div class="item-detail">
-                    <h3>Produk 1</h3>
-                    <div class="item-price">
-                        Rp 15.000
-                    </div>
-                </div>
-                <i data-feather="trash-2" class="remove-item"></i>
-            </div>
+            </template>
+           <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart is Empty</h4>
+           <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+
+           <div class="form-container" x-show="$store.cart.items.length">
+            <form action="" id="checkoutForm">
+                <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+                <input type="hidden" name="total" x-model="$store.cart.total">
+                <h5>Customer Detail</h5>
+
+                <label for="name">
+                    <span>Name</span>
+                    <input type="text" name="name" id="name">
+                </label>
+                <label for="email">
+                    <span>Email</span>
+                    <input type="email" name="email" id="email">
+                </label>
+                <label for="phone">
+                    <span>Phone</span>
+                    <input type="number" name="phone" id="phone" autocomplete="off">
+                </label>
+
+                <button class="checkout-button disabled" type="submit" id="checkout-button" value="checkout">Checkout </button>
+            </form>
+           </div>
          </div>
         <!-- shopping card end -->
     </nav>
@@ -81,7 +104,7 @@
     <!-- runing text -->
         <div class="runing-text" id="runing-text">
             <div class="marquee-container">
-                <div class="marquee-text">Nasi Padang Enak</div>
+                <div class="marquee-text">- Nasi Padang Enak - DAPUR UDA - “Bukan sekadar makan, ini tentang pulang.” </div>
               </div>
         </div>
     <!-- runing text end -->
@@ -91,8 +114,8 @@
         <section class="hero" id="home">
             <main class="content">
                 <h1>amboi <span>amboi</span></h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, ut!</p>
-                <a href="#" class="cta">Beli Sekarang</a>
+                <p>Makan dulu lah, ambo alah lapar bana!</p>
+                <!-- <a href="#" class="cta">Beli Sekarang</a> -->
             </main>
         </section>
 
@@ -109,8 +132,10 @@
                     </div>
                     <div class="content">
                         <h3>Kenapa Kami</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit tempore quasi asperiores quisquam modi ipsa.</p>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam, quam maiores. Facere repellat ipsam incidunt perspiciatis? Hic doloribus sunt omnis!</p>
+                        <p>Di setiap suapan, ada kenangan tentang kampung halaman.
+                            Raso Bundo menyajikan masakan Padang rumahan dengan cita rasa asli Minang—hangat, pedas, dan penuh rasa rindu.
+                            Tempat sederhana, tapi selalu bikin hati ingin kembali.</p>
+                        <p>“Karena makan di sini rasanya seperti di rumah.”</p>
                     </div>
                 </div>
 
@@ -118,7 +143,7 @@
 
     <!-- about section end  -->
 
-    <!-- menu -->
+    <!-- menu
         <section id="menu" class="menu">
             <h2><span>Menu</span> Kami</h2>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste quis perferendis beatae. Maiores autem voluptas inventore alias libero accusantium. Sequi?</p>
@@ -167,95 +192,59 @@
             </div>
             
         </section>
-    <!-- menu end -->
-        <section class="paket" id="paket">
-            <h2>Paket <span>Kami</span></h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, perspiciatis? Vel in laboriosam ipsa nemo?</p>
+     menu end -->
+
+      <!-- Produck -->
+        <section class="paket" id="paket" x-data="products">
+            
+            <h2>Menu <span>Kami</span></h2>
+            <p>Dari rendang yang dimasak berjam-jam hingga gulai yang kaya santan dan rempah, semua menu kami adalah cermin dari warisan kuliner Minangkabau. Setiap piring membawa cerita—tentang dapur yang hangat, masakan ibu, dan kebersamaan di meja makan.</p>
             
             <div class="row">
-                <div class="Paket-card">
-                    <div class="Paket-icons">
-                        <a href="#"><i data-feather="shopping-cart"></i></a>
-                        <a href="#" class="item-detail-buttom"><i data-feather="eye"></i></a>
-                    </div>
-                    <div class="paket-image">
-                        <img src="image/paket/paket 1.jpg" alt="Paket 1">
-                    </div>
-                    <div class="paket-konten">
-                        <h3>Paket Hemat 1</h3>
-                        <div class="rating-paket">
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star"></i>
+                <template x-for="(item, index) in items" x-key="index">
+                    <div class="Paket-card">
+                        <div class="paket-image">
+                            <img :src="`image/paket/${item.img}`" :alt="item.name">
                         </div>
-                        <div class="price-paket">Rp 15.000 <span>Rp 20.000</span></div>
-                    </div>
-                </div>
-                <div class="Paket-card">
                     <div class="Paket-icons">
-                        <a href="#"><i data-feather="shopping-cart"></i></a>
-                        <a href="#" class="item-detail-buttom"><i data-feather="eye"></i></a>
+                        <a href="#" @click.prevent="$store.cart.add(item)">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <use href="image/feather-sprite.svg#shopping-cart" />
+                            </svg>
+                        </a>
+                        <!-- <a href="#" class="item-detail-buttom">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="image/feather-sprite.svg#eye" />
+                                </svg>
+                        </a> -->
                     </div>
-                    <div class="paket-image">
-                        <img src="image/paket/paket 1.jpg" alt="Paket 1">
-                    </div>
+                    
                     <div class="paket-konten">
-                        <h3>Paket Hemat 1</h3>
+                        <h3 x-text="item.name"></h3>
                         <div class="rating-paket">
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star"></i>
+                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="image/feather-sprite.svg#star" />
+                                </svg>
+                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="image/feather-sprite.svg#star" />
+                                </svg>
+                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="image/feather-sprite.svg#star" />
+                                </svg>
+                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="image/feather-sprite.svg#star" />
+                                </svg>
+                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="image/feather-sprite.svg#star" />
+                                </svg>
                         </div>
-                        <div class="price-paket">Rp 15.000 <span>Rp 20.000</span></div>
+                        <div class="price-paket"><p x-text="rupiah(item.price)"></p> <span x-text="rupiah(item.diskon)"></span></div>
                     </div>
-                </div>
-                <div class="Paket-card">
-                    <div class="Paket-icons">
-                        <a href="#"><i data-feather="shopping-cart"></i></a>
-                        <a href="#" class="item-detail-buttom"><i data-feather="eye"></i></a>
                     </div>
-                    <div class="paket-image">
-                        <img src="image/paket/paket 1.jpg" alt="Paket 1">
-                    </div>
-                    <div class="paket-konten">
-                        <h3>Paket Hemat 1</h3>
-                        <div class="rating-paket">
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star"></i>
-                        </div>
-                        <div class="price-paket">Rp 15.000 <span>Rp 20.000</span></div>
-                    </div>
-                </div>
-                <div class="Paket-card">
-                    <div class="Paket-icons">
-                        <a href="#"><i data-feather="shopping-cart"></i></a>
-                        <a href="#" class="item-detail-buttom"><i data-feather="eye"></i></a>
-                    </div>
-                    <div class="paket-image">
-                        <img src="image/paket/paket 1.jpg" alt="Paket 1">
-                    </div>
-                    <div class="paket-konten">
-                        <h3>Paket Hemat 1</h3>
-                        <div class="rating-paket">
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star" class="rating"></i>
-                            <i data-feather="star"></i>
-                        </div>
-                        <div class="price-paket">Rp 15.000 <span>Rp 20.000</span></div>
-                    </div>
-                </div>
+                </template>
             </div>
         </section>
-    <!-- Produck -->
+   
 
     <!-- Produck End-->
 
@@ -263,7 +252,8 @@
 
         <section id="contact" class="contact">
             <h2><span>Kontak</span> Kami</h2>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste quis perferendis beatae. Maiores autem voluptas inventore alias libero accusantium. Sequi?</p>
+            <p>Dapur Uda siap mengobati rindumu.
+                Hubungi kami dan rasakan hangatnya masakan Minang, langsung dari dapur ke hati.</p>
 
             <div class="row">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.368631496691!2d106.68666167768733!3d-6.346287877253785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e5a6e26dc3cd%3A0xccd6344b8021119d!2sPamulang%20University%20Campus%202%20(UNPAM%20Viktor)!5e0!3m2!1sen!2sid!4v1750866855677!5m2!1sen!2sid"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
@@ -305,7 +295,7 @@
             <a href="#contact">Kontak</a>
         </div>
         <div class="credit">
-            <p>Created by <a href="">- Kelopok 9 | Doni | Mas Bewok | Mas Rizkiy -</a> | &copy; 2025</p>
+            <p>Created by <a href=""> - Doni Nasution | Ahmad Zidan Apriansyah | Rizki Ramadhan -</a> | &copy; 2025</p>
         </div>
     </footer>
     <!-- footer end -->

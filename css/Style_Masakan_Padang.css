@@ -21,7 +21,8 @@ html {
 
 body{
     font-family: 'Poppins', sans-serif;
-    background-color: var(--font);
+    /* background-color: var(--font); */
+    background: linear-gradient(135deg, #a82700, #5f2310, #611903);
     color: var(--Putih);
     /* min-height: 5000px; */
 
@@ -45,16 +46,24 @@ body{
     font-size: 2rem;
     font-weight: 700;
     color: var(--Putih);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+    0 4px 8px rgba(0, 0, 0, 0.06);;
     /* font-style: italic; */
 }
 .navbar .navbar-logo .u{
     color: var(--Hitam);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+    0 4px 8px rgba(0, 0, 0, 0.06);;
 }
 .navbar .navbar-logo .d{
     color: var(--Merah);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+    0 4px 8px rgba(0, 0, 0, 0.06);;
 }
 .navbar .navbar-logo .a{
     color: var(--Kuning);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+    0 4px 8px rgba(0, 0, 0, 0.06);;
 }
 
 .navbar .navbar-nav a{
@@ -125,6 +134,20 @@ body{
 }
 
 /* shoping card */
+#card-button {
+    position: relative;
+}
+#card-button .quantuty-badge {
+    display: inline-block;
+    padding: 1px 5px;
+    background-color: red;
+    border-radius: 5px;
+    font-size: 0.6rem;
+    position: absolute;
+    top: 0;
+    right: -15px;
+
+}
 .shopping-card {
     position: absolute;
     top: 100%;
@@ -140,7 +163,7 @@ body{
     right: 0;
 }
 .shopping-card img {
-    height: 6rem;
+    height: 4rem;
     border-radius: 15%;
 }
 .shopping-card .card-item {
@@ -153,8 +176,8 @@ body{
     position: relative;
 }
 .shopping-card h3 {
-    font-size: 1.6rem;
-    padding-bottom: 0.5rem;
+    font-size: 1.4rem;
+    /* padding-bottom: 0.5rem; */
 }
 .shopping-card .item-price {
     font-size: 1.2rem;
@@ -168,17 +191,80 @@ body{
     color: var(--Merah);
 }
 
+.shopping-card .card-item #add,
+.shopping-card .card-item #remove {
+    display: inline-block;
+    padding: 2px 5px;
+    cursor: pointer;
+    margin: 0 8px;
+    background-color: var(--Hitam);
+    color: var(--Putih);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
 
+.shopping-card h4 {
+    font-size: 1.6rem;
+    margin-top: -1rem;
+    text-align: center;
+}
+/* checkout form */
+.form-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-top: 1px dashed black;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+.form-container h5 {
+    text-align: center;
+    font-size: 1rem;
+}
+.form-container form {
+    width: 100%;
+    text-align: center;
+}
+.form-container label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+}
+.form-container span {
+    text-align: right;
+}
+.form-container input {
+    background-color: #ddd;
+    padding: 5px;
+    font-size: 1rem;
+    width: 70%;
+}
+.form-container .checkout-button {
+    padding: 6px 14px;
+    background-color: var(--Kuning);
+    color: var(--Putih);
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 20px;
+    margin-bottom: 1rem auto;
+    cursor: pointer;
+}
+.form-container .checkout-button.disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
 /* hero */
     .hero{
         min-height: 100vh;
         display: flex;
         align-items: center;
-        background-image: url(../image/rumah\ makan\ 2.jpg);
+        background-image: url(../image/paket/4.jpg);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
         position: relative;
+        /* opacity: 20%; */
     }
 
     .hero::after{
@@ -211,7 +297,7 @@ body{
         font-size: 1.6rem;
         margin-top: 1rem;
         line-height: 1.4;
-        font-weight: 100;
+        font-weight: 300;
         text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
         mix-blend-mode: difference;
     }
@@ -254,6 +340,9 @@ body{
 
     .about .row .about-img img {
         width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+              0 4px 8px rgba(0, 0, 0, 0.06);
+              border-radius: 15px;
     }
 
     .about .row .content {
@@ -283,8 +372,10 @@ body{
     text-align: center;
     max-width: 30rem;
     margin: auto;
-    font-weight: 100;
+    font-weight: 300;
     line-height: 1.6;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+    0 4px 8px rgba(0, 0, 0, 0.06);;
 }
 
 .menu h2 {
@@ -303,12 +394,14 @@ body{
 
 .menu .row .menu-card {
     text-align: center;
-    padding: 0.5rem;    
+    padding: 0.5rem; 
+       
 }
 
 .menu .row .menu-card img {
-    border-radius: 15px;
+    border-radius: 10px;
     width: 100%;
+    
 }
 
 .menu .row .menu-card .menu-card-title {
@@ -319,17 +412,26 @@ body{
 /* menu end */
 
 /* Paket */
+
+.paket {
+    background-image: url(../image/paket/lovepik-wood-grain-background-material-image_500948743.jpg);
+}
 .paket .row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     gap: 1.5rem;
     margin-top: 4rem;
     /* background-color: #D00000; */
+    
 }
 .paket .Paket-card {
     text-align: center;
     border: 1px solid #f8f9fa;
     padding: 2rem;
+    background-color: var(--Kuning);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+              0 4px 8px rgba(0, 0, 0, 0.06);
+              border-radius: 15px;
 }
 .paket .Paket-icons {
     display: flex;
@@ -341,11 +443,14 @@ body{
     height: 4rem;
     color: var(--Putih);
     margin: 0.3rem;
-    border: 1px solid #D00000;
+    border: 3px solid #ffff;
     border-radius: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+              0 4px 8px rgba(0, 0, 0, 0.06);
+    
 }
 .paket .Paket-icons a:hover {
     color: var(--Kuning);
@@ -355,7 +460,10 @@ body{
     padding: 1rem 0;
 }
 .paket .paket-image img {
-    height: 25rem;
+    height: 20rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+              0 4px 8px rgba(0, 0, 0, 0.06);
 }
 .paket .paket-konten h3 {
     font-size: 2rem;
@@ -369,15 +477,18 @@ body{
     fill: var(--Kuning);
     color: var(--Kuning);
 }
-.paket .price-paket {
+.paket .price-paket p {
     font-size: 1.3rem;
     font-weight: bold;
+    margin-bottom: -2rem;
 }
 .paket .price-paket span {
     text-decoration: line-through;
     font-weight: lighter;
+    font-style: italic;
     font-size: 1rem;
     color: red;
+    font-weight: bold;
 }
 /* Paket End*/
 
@@ -480,7 +591,7 @@ footer .credit a {
     padding-left: 100%;
     animation: scroll-left 10s linear infinite;
     font-size: 24px;
-    color: orange;
+    color: var(--Merah);
     font-weight: bold;
     font-family: sans-serif;
   }
